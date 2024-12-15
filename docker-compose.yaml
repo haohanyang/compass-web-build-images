@@ -1,0 +1,21 @@
+services:
+  compass:
+    build: .
+    container_name: compass-web-dev-compass
+    depends_on:
+      - mongo
+    ports:
+      - 7777:7777
+      - 1337:1337
+    networks:
+      - compass-web-dev
+
+  mongo:
+    image: mongo
+    container_name: compass-web-dev-mongo
+    networks:
+      - compass-web-dev
+
+networks:
+  compass-web-dev:
+    driver: bridge

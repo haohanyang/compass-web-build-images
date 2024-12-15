@@ -1,0 +1,7 @@
+.git
+.env
+compass/.git
+*Dockerfile*
+*docker-compose*
+node_modules
+**/node_modules
