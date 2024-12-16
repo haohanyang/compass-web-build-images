@@ -25,4 +25,7 @@ EXPOSE 1337
 
 USER node
 
+ENV OPEN_BROWSER=false
+ENV NODE_ENV=production
+
 CMD ["npm", "run", "start-web"]

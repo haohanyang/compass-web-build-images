@@ -18,12 +18,4 @@ jobs:
       - name: Build image
         run: docker build -t haohanyang/compass-web:${{ github.sha }} .
       - name: Run the compass web
-        run: |
-          timeout 30s docker run --rm haohanyang/compass-web:${{ github.sha }}
-
-          if [ $? -eq 124 ]
-          then
-            echo "ok"
-          else
-            exit 1
-          fi
+        run: bash start-container.sh
