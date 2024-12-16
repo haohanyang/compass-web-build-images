@@ -1,4 +1,4 @@
-name: Build docker image
+name: Build linux/amd64 image
 
 on:
   push:
@@ -7,17 +7,13 @@ on:
       - README.md
 
 jobs:
-  build:
+  build-image:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      - name: Build and push
-        uses: docker/build-push-action@v6
         with:
-          platform: linux/amd64,linux/arm64
-          push: false
-          tags: haohanyang/compass-web:${{ github.sha }}
+          submodules: true
+      - name: Build image
+        run: docker build --platform linux/amd64 -t haohanyang/compass-web:${{ github.sha }} .
+      - name: Run the compass web
+        run: bash start-container.sh haohanyang/compass-web:${{ github.sha }}
