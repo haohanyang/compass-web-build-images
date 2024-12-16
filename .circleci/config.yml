@@ -3,9 +3,7 @@ version: 2
 jobs:
   build-linux-arm-image:
     docker:
-      - image: cimg/base:2022.09
-    machine:
-      image: ubuntu-2204:2023.07.1
+      - image: cimg/base:2023.06
     resource_class: arm.medium
     steps:
       - checkout
