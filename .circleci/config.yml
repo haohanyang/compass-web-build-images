@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 
 jobs:
   build-linux-arm-image:
@@ -11,11 +11,11 @@ jobs:
       - checkout
       - run:
           name: Fetch git submodule
-          command: git submodule update --recursive
+          command: git submodule update --init
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          name: Build Docker image
+          name: Build image
           command: docker build --platform linux/arm64 -t haohanyang/compass-web:$CIRCLE_SHA1 .
       - run:
           name: Run docker container
@@ -23,6 +23,6 @@ jobs:
 
 workflows:
   version: 2
-  all-tests:
+  build-image:
     jobs:
       - build-linux-arm-image
