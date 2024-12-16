@@ -16,11 +16,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build image
-        uses: docker/build-push-action@v6
-        with:
-          platforms: linux/amd64
-          push: false
-          tags: haohanyang/compass-web:${{ github.sha }}
+        run: docker build -t haohanyang/compass-web:${{ github.sha }} .
       - name: Run the compass web
         run: |
           timeout 30s docker run --rm haohanyang/compass-web:${{ github.sha }}
