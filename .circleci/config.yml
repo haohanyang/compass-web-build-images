@@ -1,0 +1,28 @@
+version: 2.1
+
+jobs:
+  build-linux-arm-image:
+    docker:
+      - image: cimg/base:2022.09
+    machine:
+      image: ubuntu-2204:2023.07.1
+    resource_class: arm.medium
+    steps:
+      - checkout
+      - run:
+          name: Fetch git submodule
+          command: git submodule update --recursive
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build Docker image
+          command: docker build --platform linux/arm64 -t haohanyang/compass-web:$CIRCLE_SHA1 .
+      - run:
+          name: Run docker container
+          command: bash start-container.sh haohanyang/compass-web:$CIRCLE_SHA1
+
+workflows:
+  version: 2
+  all-tests:
+    jobs:
+      - build-linux-arm-image

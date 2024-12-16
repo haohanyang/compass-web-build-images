@@ -13,9 +13,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
       - name: Build image
-        run: docker build -t haohanyang/compass-web:${{ github.sha }} .
+        run: docker build --platform linux/amd64 -t haohanyang/compass-web:${{ github.sha }} .
       - name: Run the compass web
-        run: bash start-container.sh
+        run: bash start-container.sh haohanyang/compass-web:${{ github.sha }}
