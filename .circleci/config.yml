@@ -19,8 +19,33 @@ jobs:
           name: Run docker container
           command: bash start-container.sh haohanyang/compass-web:$CIRCLE_SHA1
 
+  publish-image:
+    docker:
+      - image: cimg/base:2023.06
+    resource_class: arm.medium
+    steps:
+      - checkout
+      - run:
+          name: Fetch git submodule
+          command: git submodule update --init
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Login docker
+          command: echo "$DOCKER_TOKEN" | docker login -u haohanyang --password-stdin
+      - run:
+          name: Build and push image
+          command: docker buildx build --platform linux/arm64 -t haohanyang/compass-web-arm64:$CIRCLE_SHA1 -t haohanyang/compass-web-arm64:latest --push .
+
 workflows:
   version: 2
   build-image:
     jobs:
-      - build-linux-arm-image
+      - build-linux-arm-image:
+          filters:
+            branches:
+              ignore: master
+      - publish-image:
+          filters:
+            branches:
+              only: master
