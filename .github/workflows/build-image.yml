@@ -15,7 +15,7 @@ jobs:
           submodules: true
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Build and push
+      - name: Build image
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64
@@ -23,7 +23,7 @@ jobs:
           tags: haohanyang/compass-web:${{ github.sha }}
       - name: Run the compass web
         run: |
-          timeout 30s docker run -it --rm haohanyang/compass-web:${{ github.sha }}
+          timeout 30s docker run --rm haohanyang/compass-web:${{ github.sha }}
 
           if [ $? -eq 124 ]
           then
