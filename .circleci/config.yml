@@ -1,24 +1,6 @@
 version: 2
 
 jobs:
-  build-linux-arm-image:
-    docker:
-      - image: cimg/base:2023.06
-    resource_class: arm.medium
-    steps:
-      - checkout
-      - run:
-          name: Fetch git submodule
-          command: git submodule update --init
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - run:
-          name: Build image
-          command: docker build --platform linux/arm64 -t haohanyang/compass-web:$CIRCLE_SHA1 .
-      - run:
-          name: Run docker container
-          command: bash start-container.sh haohanyang/compass-web:$CIRCLE_SHA1
-
   publish-image:
     docker:
       - image: cimg/base:2023.06
@@ -41,11 +23,7 @@ workflows:
   version: 2
   build-image:
     jobs:
-      - build-linux-arm-image:
-          filters:
-            branches:
-              ignore: improve-build
       - publish-image:
           filters:
             branches:
-              ignore: improve-build
+              only: master

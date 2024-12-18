@@ -5,8 +5,7 @@ services:
     depends_on:
       - mongo
     ports:
-      - 7777:7777
-      - 1337:1337
+      - 8080:8080
     networks:
       - compass-web-dev
 
