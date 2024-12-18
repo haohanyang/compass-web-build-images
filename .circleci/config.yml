@@ -44,8 +44,8 @@ workflows:
       - build-linux-arm-image:
           filters:
             branches:
-              ignore: master
+              ignore: improve-build
       - publish-image:
           filters:
             branches:
-              only: master
+              ignore: improve-build
