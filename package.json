@@ -1,0 +1,11 @@
+{
+  "name": "compass-web",
+  "main": "dist/server.js",
+  "scripts": {
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "ws": "^8.16.0"
+  }
+}
