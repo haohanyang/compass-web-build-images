@@ -32,3 +32,4 @@ networks:
   compass-web-dev:
     driver: bridge
 ```
+Then visit your MongoDB compass on http://localhost:8080
