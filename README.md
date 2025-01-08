@@ -1,3 +1,5 @@
+# Moved to https://github.com/haohanyang/compass-web
+<hr>
 # Docker Images for MongoDB Compass Web
 
 Docker images of MongoDB Compass web. The images are experimental and not ready for production.
